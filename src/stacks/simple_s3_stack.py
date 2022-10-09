@@ -15,7 +15,7 @@ class SimpleS3Stack(Stack):
         # The code that defines your stack goes here
 
         bucket = s3.Bucket(self, id=props["bucket_name"],
-                           bucket_name=props["bucket_name"],
+                           bucket_name=f'{props["bucket_name"]}-{props["environment"]}',
                            versioned=True if props["versioned"] == "enable" else None,
                            enforce_ssl=True,
                            encryption=s3.BucketEncryption.S3_MANAGED,

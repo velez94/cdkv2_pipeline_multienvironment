@@ -54,11 +54,11 @@ class CdkPipelineMultienvironmentStack(Stack):
 
         )
         # Modify properties, bucket name
-        props["environment"]='dev'
-        props["storage_resources"]["s3"][0]['bucket_name']= f'{props["storage_resources"]["s3"][0]["bucket_name"]}-{props["environment"]}'
+        props["storage_resources"]["s3"][0]["environment"]='dev'
 
         # Create stages
-        deploy_dev = PipelineStageDeployApp(self, "DeployDev", props=props["storage_resources"]["s3"][0], env=dev_env)
+        deploy_dev = PipelineStageDeployApp(self, "DeployDev",
+                                            props=props["storage_resources"]["s3"][0], env=dev_env)
         # Add Stage
         deploy_dev_stg= pipeline.add_stage(deploy_dev)
 
@@ -70,9 +70,7 @@ class CdkPipelineMultienvironmentStack(Stack):
 
         # Create Stage for Staging Environment
         # Modify properties, bucket name
-        props["environment"] = 'stg'
-        props["storage_resources"]["s3"][0][
-            'bucket_name'] = f'{props["storage_resources"]["s3"][0]["bucket_name"]}-{props["environment"]}'
+        props["storage_resources"]["s3"][0]["environment"] = 'stg'
 
         # Create stages
         deploy_stg = PipelineStageDeployApp(self, "DeployStg", props=props["storage_resources"]["s3"][0], env=stg_env)
