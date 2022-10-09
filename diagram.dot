@@ -1,0 +1,209 @@
+digraph "Diagram" {
+  splines = "ortho";
+  pad = "1.0";
+  nodesep = "0.60";
+  ranksep = "0.75";
+  fontname = "Sans-Serif";
+  fontsize = "15";
+  dpi = "200";
+  rankdir = "BT";
+  compound = "true";
+  fontcolor = "#222222";
+  edge [
+    color = "#D5871488",
+    penwidth = 2,
+    arrowhead = "dot",
+    arrowtail = "dot",
+  ];
+  node [
+    shape = "box",
+    style = "rounded",
+    fixedsize = true,
+    width = 1.7,
+    height = 1.7,
+    labelloc = "c",
+    imagescale = true,
+    fontname = "Sans-Serif",
+    fontsize = 8,
+    margin = 8,
+  ];
+  subgraph "CdkPipelineMultienvironmentStack" {
+    subgraph "cluster-SubGraph.CdkPipelineMultienvironmentStack" {
+      graph [
+        label = "CdkPipelineMultienvironmentStack",
+        labelloc = "b",
+        labeljust = "l",
+        margin = "10",
+        fontsize = "16",
+        penwidth = "2",
+        pencolor = "#888888",
+        style = "filled,rounded",
+        fillcolor = "#e4e4e4",
+      ];
+      "CdkPipelineMultienvironmentStack/cdk_pipeline_multienvironment" [
+        label = " cdk pipeline\nmultienvironment",
+        fontsize = 12,
+        image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_AWS-CodeCommit_64@5x.png",
+        imagescale = "true",
+        imagepos = "tc",
+        penwidth = "0",
+        shape = "node",
+        fixedsize = "true",
+        labelloc = "b",
+        width = 1.2,
+        height = 1.682,
+      ];
+      subgraph "cluster-SubGraph.PipelinemultiDev" {
+        graph [
+          label = "PipelinemultiDev",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#d6d6d6",
+        ];
+        "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" [
+          label = " Pipeline",
+          fontsize = 12,
+          image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_AWS-CodePipeline_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        "CdkPipelineMultienvironmentStack/PipelinemultiDev/CodeBuildActionRole" [
+          label = " CodeBuildActionRole",
+          fontsize = 12,
+          image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Identity-and-Access-Management_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        "CdkPipelineMultienvironmentStack/PipelinemultiDev/UpdatePipeline/SelfMutation" [
+          label = " SelfMutation",
+          fontsize = 12,
+          image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_Amazon-CodeBuild_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+      }
+      subgraph "cluster-SubGraph.DeployDev" {
+        graph [
+          label = "DeployDev",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#d6d6d6",
+        ];
+        subgraph "cluster-SubGraph.SimpleS3Stack" {
+          graph [
+            label = "SimpleS3Stack",
+            labelloc = "b",
+            labeljust = "l",
+            margin = "10",
+            fontsize = "16",
+            penwidth = "2",
+            pencolor = "#888888",
+            style = "filled,rounded",
+            fillcolor = "#c7c7c7",
+          ];
+          "CdkPipelineMultienvironmentStack/DeployDev/SimpleS3Stack/multi-env-demo-dev" [
+            label = " multi-env-demo-dev",
+            fontsize = 12,
+            image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Storage/64/Arch_Amazon-S3-Standard_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 2,
+            height = 2.266,
+          ];
+        }
+      }
+      subgraph "cluster-SubGraph.DeployStg" {
+        graph [
+          label = "DeployStg",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#d6d6d6",
+        ];
+        subgraph "cluster-SubGraph.SimpleS3Stack" {
+          graph [
+            label = "SimpleS3Stack",
+            labelloc = "b",
+            labeljust = "l",
+            margin = "10",
+            fontsize = "16",
+            penwidth = "2",
+            pencolor = "#888888",
+            style = "filled,rounded",
+            fillcolor = "#c7c7c7",
+          ];
+          "CdkPipelineMultienvironmentStack/DeployStg/SimpleS3Stack/multi-env-demo-dev-stg" [
+            label = " multi env demo dev\nstg",
+            fontsize = 12,
+            image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Storage/64/Arch_Amazon-S3-Standard_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 2,
+            height = 2.4819999999999998,
+          ];
+        }
+      }
+    }
+  }
+  "CdkPipelineMultienvironmentStack/cdk_pipeline_multienvironment" -> "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" -> "CdkPipelineMultienvironmentStack/cdk_pipeline_multienvironment" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" -> "CdkPipelineMultienvironmentStack/PipelinemultiDev/CodeBuildActionRole" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" -> "CdkPipelineMultienvironmentStack/PipelinemultiDev/UpdatePipeline/SelfMutation" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/PipelinemultiDev/CodeBuildActionRole" -> "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/PipelinemultiDev/CodeBuildActionRole" -> "CdkPipelineMultienvironmentStack/PipelinemultiDev/UpdatePipeline/SelfMutation" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/PipelinemultiDev/UpdatePipeline/SelfMutation" -> "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" [
+    dir = "both",
+  ];
+}

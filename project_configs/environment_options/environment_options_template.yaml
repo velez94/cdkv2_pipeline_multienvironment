@@ -1,0 +1,32 @@
+project_name: "multiDev"
+# Repository definitions
+repository_properties:
+  repository_name: "cdk_pipeline_multienvironment"
+  create_repository: "true"
+  description: "Repository for cdk pipelines for  multiaccount environment"
+  branch: "master"
+
+# Multi Environment setup
+devsecops_account: "123456789012"
+devsecops_region: "us-east-2"
+
+deployment_account: "123456789013"
+deployment_region: "us-east-2"
+
+stg_account: "123456789014"
+stg_region: "us-east-2"
+
+storage_resources:
+  s3:
+    - bucket_name: "multi-env-demo"
+      versioned: "enable"
+
+# Tags definitions align with corporation instructions
+tags:
+  - key: "Project"
+    value: "multiDev"
+  - key: "Environment"
+    value: "dev"
+  - key: "Owner"
+    value: "DevSecOpsAdm"
+
