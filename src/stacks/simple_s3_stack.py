@@ -19,7 +19,10 @@ class SimpleS3Stack(Stack):
                            versioned=True if props["versioned"] == "enable" else None,
                            enforce_ssl=True,
                            encryption=s3.BucketEncryption.S3_MANAGED,
-                           removal_policy= RemovalPolicy.DESTROY
+                           removal_policy=RemovalPolicy.DESTROY,
+                           # Best practices
+                           block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+
                            )
         # Define outputs
         CfnOutput(self, id="S3ARNOutput", value=bucket.bucket_arn, description="Bucket ARN")

@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [CDK Pipelines Multi Environment Devployment](#cdk-pipelines-multi-environment-devployment)
+  - [Solution Overview](#solution-overview)
+- [How to](#how-to)
+  - [Code structure](#code-structure)
+  - [Parametrize the project](#parametrize-the-project)
+  - [Useful commands](#useful-commands)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # CDK Pipelines Multi Environment Devployment
 
 This is a project for CDK development with Python for creating multi AWS account deployment.
@@ -6,22 +18,23 @@ This is a project for CDK development with Python for creating multi AWS account
 
 <center>
 
-![Solution Overview - Simple CDK Pipeline](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kxuo1yngv66xisnxh6ka.png)
-Solution Overview – Simple CDK Pipeline
+![Solution Overview - Enhanced CDK Pipeline](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sa4e9n3xtel08xq9pv8f.png)
+ Solution Overview – Enhanced CDK Pipeline
 
 </center>
 The Figure shows the steps to accomplish this task. Also, it shows a cross account pipeline using AWS CodePipeline, AWS CodeCommit, AWS Codebuild and AWS CloudFormation. But, how can you construct this pipeline secure and with the minimum effort? The answer [CDK Pipelines](https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html).
 
 This pipeline is a default pipeline composed by next steps:
-
-1.The changes are detected and activate de pipeline. For this demo the branch `master` is the default branch.
-2.The CDK project is synthesized.
+1.The changes are detected and activate de pipeline. For this demo the branch master is the default branch.
+2.The CDK project is synthesized if is aligned with AWS Security Best practices.
 3.The pipeline run self-update action.
-4.The Cloudformation stack is prepared for developer environment.
-5.The Cloudformation stack is deployed for developer environment.
-6.To move between environments a manual approval step is added.
-7.The Cloudformation stack is prepared for staging environment.
-8.The Cloudformation stack is deployed for staging environment.
+4.The unit test runs, and its report is published in codebuild reports group.
+5.The SAST runs, and its report is published in codebuild reports group.
+6.The Cloudformation stack is prepared for developer environment.
+7.The Cloudformation stack is deployed for developer environment after success result from Cloudformation hooks.
+8.To move between environments a manual approval step is added, the notification is sent to slack channel.
+9.The Cloudformation stack is prepared for staging environment.
+10.The Cloudformation stack is deployed for staging environment after success result from Cloudformation hooks.
 
 # How to
 

@@ -4,7 +4,8 @@ from aws_cdk import (
     pipelines,
     aws_codecommit as codecommit,
     Environment,
-    CfnOutput
+    CfnOutput,
+    aws_codebuild as codebuild
 
 )
 from constructs import Construct
@@ -53,20 +54,72 @@ class CdkPipelineMultienvironmentStack(Stack):
             self_mutation=True,
 
         )
+        # Create unit test step
+        unit_test_step = pipelines.CodeBuildStep("UnitTests", project_name="UnitTests",
+                                                 commands=[
+                                                     "pip install pytest",
+                                                     "pip install -r requirements.txt",
+                                                     "python3 -m pytest --junitxml=unit_test.xml"
+                                                 ],
+                                                 partial_build_spec=codebuild.BuildSpec.from_object(
+                                                     {"version": '0.2',
+                                                      "reports": {
+                                                          f"Pytest-{props['project_name']}-Report": {
+                                                              "files": [
+                                                                  "unit_test.xml"
+                                                              ],
+
+                                                              "file-format": "JUNITXML"
+
+                                                          }
+                                                      }
+                                                      }
+                                                 )
+                                                 )
+        # Create SAST Step for Infrastructure
+        sast_test_step = pipelines.CodeBuildStep("SASTTests", project_name="SASTTests",
+                                                 commands=[
+                                                     "pip install checkov",
+                                                     "ls -all",
+                                                     "checkov -d . -o junitxml --output-file . --soft-fail"
+                                                 ],
+                                                 partial_build_spec=codebuild.BuildSpec.from_object(
+                                                     {"version": '0.2',
+                                                      "reports": {
+                                                          f"checkov-{props['project_name']}-Report": {
+                                                              "files": [
+                                                                  "results_junitxml.xml"
+                                                              ],
+
+                                                              "file-format": "JUNITXML"
+
+                                                          }
+                                                      }
+                                                      }
+                                                 ),
+                                                 input= pipeline.synth.primary_output
+
+
+                                                 )
+
         # Modify properties, bucket name
-        props["storage_resources"]["s3"][0]["environment"]='dev'
+        props["storage_resources"]["s3"][0]["environment"] = 'dev'
 
         # Create stages
         deploy_dev = PipelineStageDeployApp(self, "DeployDev",
                                             props=props["storage_resources"]["s3"][0], env=dev_env)
+
         # Add Stage
-        deploy_dev_stg= pipeline.add_stage(deploy_dev)
+        deploy_dev_stg = pipeline.add_stage(deploy_dev)
+        # Add Unit test pre step
+        deploy_dev_stg.add_pre(unit_test_step)
+        # Add SAST step
+        deploy_dev_stg.add_pre(sast_test_step)
 
         # Add manual approval to promote staging
         manual_approval = pipelines.ManualApprovalStep("PromoteToStg", comment="Promote to Staging Gate")
         # Define Dependency
         deploy_dev_stg.add_post(manual_approval)
-
 
         # Create Stage for Staging Environment
         # Modify properties, bucket name
