@@ -8,7 +8,7 @@ from .helper import load_yamls, load_yamls_to_dict
 dirname = os.path.dirname(__file__)
 
 # props_paths=f"./{os.environ['props_paths']}"
-props_paths = f"../environment_options/environment_options_template.yaml"
+props_paths = f"../environment_options/environment_options.yaml"
 # props = (load_yamls(os.path.join(dirname, "environment_options_example.yaml")))[0]
 
 props = (load_yamls(os.path.join(dirname, props_paths)))[0]
