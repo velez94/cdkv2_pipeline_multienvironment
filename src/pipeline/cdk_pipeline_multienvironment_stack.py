@@ -10,7 +10,7 @@ from aws_cdk import (
 )
 from constructs import Construct
 from .stages.deploy_app_stage import PipelineStageDeployApp
-
+from ..lib.notifications.lambda_notifications import  LambdaNotification
 
 class CdkPipelineMultienvironmentStack(Stack):
 
@@ -21,6 +21,8 @@ class CdkPipelineMultienvironmentStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # The code that defines your stack goes here
+        enable_notifications = props.get("enable_notifications", "false")
+
         # Create repository
 
         rep = codecommit.Repository(
@@ -132,7 +134,10 @@ class CdkPipelineMultienvironmentStack(Stack):
 
         # Build Pipeline
         pipeline.build_pipeline()
-
+        # Enable notifications
+        if enable_notifications == "true":
+            LambdaNotification(self, "Notifications", props=props, pipeline=pipeline.pipeline)
+        # Define Outputs
         # Define Outputs
         CfnOutput(self, "GRCRepoUrl", value=rep.repository_clone_url_grc, description="GRC Repository Url")
         CfnOutput(self, "PipelineArn", value=pipeline.pipeline.pipeline_arn, description="Pipeline ARN")

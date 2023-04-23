@@ -3,12 +3,10 @@ import os
 
 import aws_cdk as cdk
 from aws_cdk import Aspects
-#from cdk_nag import AwsSolutionsChecks
+# from cdk_nag import AwsSolutionsChecks
 
-from src.stacks.simple_s3_stack import SimpleS3Stack
 from src.pipeline.cdk_pipeline_multienvironment_stack import CdkPipelineMultienvironmentStack
-from project_configs.helpers.project_configs import props, env_client_deployment_account, env_devsecops_account, \
-    env_client_stg_account
+from project_configs.helpers.project_configs import props,  env_devsecops_account
 from project_configs.helpers.helper import set_tags
 
 app = cdk.App()
@@ -17,10 +15,11 @@ app = cdk.App()
 pipeline_stack = CdkPipelineMultienvironmentStack(
     app,
     "CdkPipelineMultienvironmentStack",
+    stack_name= "CdkPipelineMultienvironmentStack",
     props=props,
     env=env_devsecops_account,
-    dev_env= env_client_deployment_account,
-    stg_env=env_client_stg_account
+    dev_env= props["environments"]["stg"],
+    stg_env=props["environments"]["prod"]
 )
 set_tags(pipeline_stack, tags=props["tags"])
 app.synth()

@@ -9,12 +9,22 @@ repository_properties:
 # Multi Environment setup
 devsecops_account: "123456789012"
 devsecops_region: "us-east-2"
+enable_notifications: "true"
 
-deployment_account: "123456789013"
-deployment_region: "us-east-2"
+environments:
+  - name: 'prod'
+    deployment_account: "123456789013"
+    deployment_region: "us-east-2"
+    enable: 'true'
 
-stg_account: "123456789014"
-stg_region: "us-east-2"
+  - name: 'stg'
+    deployment_account: "123456789014"
+    deployment_region: "us-east-2"
+    enable: 'true'
+
+#Webhook url
+webhook_ops_channel: "https://Mycompany.webhook.office.com/webhookb2/4d91f924-0761-40ee-982e-cf2ddc123441@947ae4c7-1234-4f6e-5678-06c60f64ca3e/IncomingWebhook/670f9030ad704e19b91cee697aaf9f2c/37e3bcb6-918a-430c-b281-22b36bc6678p"
+
 
 storage_resources:
   s3:

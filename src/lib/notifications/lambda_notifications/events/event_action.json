@@ -1,0 +1,31 @@
+{
+  "version": "0",
+  "id": "5ce4b6b4-bdb3-a47f-dee1-ae9983c44a94",
+  "detail-type": "CodePipeline Action Execution State Change",
+  "source": "aws.codepipeline",
+  "account": "1234567890",
+  "time": "2023-04-07T04:32:12Z",
+  "region": "us-east-2",
+  "resources": [
+    "arn:aws:codepipeline:us-east-2:1234567890:PipelinemultiDev"
+  ],
+  "detail": {
+    "pipeline": "PipelinemultiDev",
+    "execution-id": "7d1aa5de-36ba-4fee-8839-d3fe209d89ba",
+    "stage": "DeployDev",
+    "execution-result": {
+      "external-execution-summary": "Stack:arn:aws:cloudformation:us-east-2:123456789014:stack/DeployDev-SimpleS3Stack/9e187740-d4eb-11ed-808f-0624798227e5 is in ROLLBACK_COMPLETE state and can not be updated. (Service: AmazonCloudFormation; Status Code: 400; Error Code: ValidationError; Request ID: 5689ee1c-845a-4694-9c7d-2e7142ac9070; Proxy: null)",
+      "error-code": "JobFailed"
+    },
+    "action": "SimpleS3Stack.Prepare",
+    "state": "FAILED",
+    "region": "us-east-2",
+    "type": {
+      "owner": "AWS",
+      "provider": "CloudFormation",
+      "category": "Deploy",
+      "version": "1"
+    },
+    "version": 10.0
+  }
+}

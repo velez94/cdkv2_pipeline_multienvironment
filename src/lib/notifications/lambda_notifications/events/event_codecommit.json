@@ -1,0 +1,23 @@
+{
+  "version": "0",
+  "id": "1569bc58-c6d0-e62c-e05b-37cae46027f1",
+  "detail-type": "CodeCommit Repository State Change",
+  "source": "aws.codecommit",
+  "account": "513261883139",
+  "time": "2020-03-30T21:25:31Z",
+  "region": "us-east-2",
+  "resources": [
+    "arn:aws:codecommit:us-east-2:513261883139:terraform-artifacts-code"
+  ],
+  "detail": {
+    "callerUserArn": "arn:aws:iam::513261883139:user/wilmar.velez",
+    "commitId": "0efe0986c2777618cadd2dd1e7dbfe3294e76add",
+    "event": "referenceUpdated",
+    "oldCommitId": "d8f73ea7d67c85c3ed380b01b7d0c4a7006f3b0f",
+    "referenceFullName": "refs/heads/ops",
+    "referenceName": "ops",
+    "referenceType": "branch",
+    "repositoryId": "d53a9052-2263-4d53-8604-384b7a2dd759",
+    "repositoryName": "terraform-artifacts-code"
+  }
+}
