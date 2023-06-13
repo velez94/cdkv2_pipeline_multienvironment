@@ -129,8 +129,8 @@ digraph "Diagram" {
             style = "filled,rounded",
             fillcolor = "#c7c7c7",
           ];
-          "CdkPipelineMultienvironmentStack/DeployDev/SimpleS3Stack/multi-env-demo-dev" [
-            label = " multi-env-demo-dev",
+          "CdkPipelineMultienvironmentStack/DeployDev/SimpleS3Stack/multi-env-demo" [
+            label = " multi-env-demo",
             fontsize = 12,
             image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Storage/64/Arch_Amazon-S3-Standard_64@5x.png",
             imagescale = "true",
@@ -168,8 +168,8 @@ digraph "Diagram" {
             style = "filled,rounded",
             fillcolor = "#c7c7c7",
           ];
-          "CdkPipelineMultienvironmentStack/DeployStg/SimpleS3Stack/multi-env-demo-dev-stg" [
-            label = " multi env demo dev\nstg",
+          "CdkPipelineMultienvironmentStack/DeployStg/SimpleS3Stack/multi-env-demo" [
+            label = " multi-env-demo",
             fontsize = 12,
             image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Storage/64/Arch_Amazon-S3-Standard_64@5x.png",
             imagescale = "true",
@@ -179,9 +179,143 @@ digraph "Diagram" {
             fixedsize = "true",
             labelloc = "b",
             width = 2,
-            height = 2.4819999999999998,
+            height = 2.266,
           ];
         }
+      }
+      subgraph "cluster-SubGraph.TeamConfiguration" {
+        graph [
+          label = "TeamConfiguration",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#d6d6d6",
+        ];
+        "CdkPipelineMultienvironmentStack/TeamConfiguration/multiDev" [
+          label = " multiDev",
+          fontsize = 12,
+          image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_App-Integration/Arch_64/Arch_AWS-Simple-Notification-Service_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "CdkPipelineMultienvironmentStack/TeamConfiguration/MicrosoftTeamsChannel-multiDev" [
+          label = " CHATBOT",
+          fontsize = 12,
+        ];
+        subgraph "cluster-SubGraph.IAMRole" {
+          graph [
+            label = "IAMRole",
+            labelloc = "b",
+            labeljust = "l",
+            margin = "10",
+            fontsize = "16",
+            penwidth = "2",
+            pencolor = "#888888",
+            style = "filled,rounded",
+            fillcolor = "#c7c7c7",
+          ];
+          "CdkPipelineMultienvironmentStack/TeamConfiguration/IAMRole/AWSChatbotRole-multiDev" [
+            label = " AWSChatbotRole\nmultiDev",
+            fontsize = 12,
+            image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Identity-and-Access-Management_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 1.2,
+            height = 1.682,
+          ];
+          "CdkPipelineMultienvironmentStack/TeamConfiguration/IAMRole/AWSChatbotCWPolicy-multiDev" [
+            label = " AWSChatbotCWPolicy\nmultiDev",
+            fontsize = 12,
+            image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Identity-and-Access-Management_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 1.2,
+            height = 1.682,
+          ];
+        }
+      }
+      subgraph "cluster-SubGraph.Notifications" {
+        graph [
+          label = "Notifications",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#d6d6d6",
+        ];
+        "CdkPipelineMultienvironmentStack/Notifications/lambdanotification_multiDev" [
+          label = " lambdanotification\nmultiDev",
+          fontsize = 12,
+          image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_AWS-Lambda_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.4819999999999998,
+        ];
+        "CdkPipelineMultienvironmentStack/Notifications/webhook_multiDev_channel" [
+          label = " webhook multiDev\nchannel",
+          fontsize = 12,
+          image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Secrets-Manager_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.682,
+        ];
+        "CdkPipelineMultienvironmentStack/Notifications/multiDev-LambdaAlias" [
+          label = " multiDev-LambdaAlias",
+          fontsize = 12,
+          image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_AWS-Lambda_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "CdkPipelineMultienvironmentStack/Notifications/multiDev-lambda-DeploymentGroup" [
+          label = " multiDev lambda\nDeploymentGroup",
+          fontsize = 12,
+          image = "/home/walej/.nvm/versions/node/v18.2.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_AWS-CodeDeploy_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.682,
+        ];
       }
     }
   }
@@ -197,6 +331,9 @@ digraph "Diagram" {
   "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" -> "CdkPipelineMultienvironmentStack/PipelinemultiDev/UpdatePipeline/SelfMutation" [
     dir = "both",
   ];
+  "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" -> "CdkPipelineMultienvironmentStack/Notifications/lambdanotification_multiDev" [
+    dir = "both",
+  ];
   "CdkPipelineMultienvironmentStack/PipelinemultiDev/CodeBuildActionRole" -> "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" [
     dir = "both",
   ];
@@ -204,6 +341,21 @@ digraph "Diagram" {
     dir = "both",
   ];
   "CdkPipelineMultienvironmentStack/PipelinemultiDev/UpdatePipeline/SelfMutation" -> "CdkPipelineMultienvironmentStack/PipelinemultiDev/Pipeline" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/TeamConfiguration/IAMRole/AWSChatbotCWPolicy-multiDev" -> "CdkPipelineMultienvironmentStack/TeamConfiguration/IAMRole/AWSChatbotRole-multiDev" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/TeamConfiguration/MicrosoftTeamsChannel-multiDev" -> "CdkPipelineMultienvironmentStack/TeamConfiguration/IAMRole/AWSChatbotRole-multiDev" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/TeamConfiguration/MicrosoftTeamsChannel-multiDev" -> "CdkPipelineMultienvironmentStack/TeamConfiguration/multiDev" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/Notifications/lambdanotification_multiDev" -> "CdkPipelineMultienvironmentStack/Notifications/webhook_multiDev_channel" [
+    dir = "both",
+  ];
+  "CdkPipelineMultienvironmentStack/Notifications/multiDev-LambdaAlias" -> "CdkPipelineMultienvironmentStack/Notifications/lambdanotification_multiDev" [
     dir = "both",
   ];
 }

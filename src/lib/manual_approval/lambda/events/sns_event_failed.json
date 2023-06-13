@@ -1,0 +1,31 @@
+{
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:us-east-1:{{{accountId}}}:ExampleTopic",
+      "Sns": {
+        "Type": "Notification",
+        "MessageId": "95df01b4-ee98-5cb9-9903-4c221d41eb5e",
+        "TopicArn": "arn:aws:sns:us-east-1:123456789012:ExampleTopic",
+        "Subject": "example subject",
+        "Message": "{\"account\":\"225311078840\",\"detailType\":\"CodePipeline Action Execution State Change\",\"region\":\"us-east-2\",\"source\":\"aws.codepipeline\",\"time\":\"2022-05-18T22:16:35Z\",\"notificationRuleArn\":\"arn:aws:codestar-notifications:us-east-2:225311078840:notificationrule/564c4637af372a0ba706b33df9e1438261f02a9b\",\"detail\":{\"pipeline\":\"cdk_sso_management\",\"execution-id\":\"595dab46-d02c-41e0-ac2d-0c837c9ae838\",\"stage\":\"DeployProd\",\"execution-result\":{\"external-execution-summary\":\"Rejected by arn:aws:sts::225311078840:assumed-role/AWSReservedSSO_AdministratorAccess_01ccb2d99194e6fb/alejandro.velez\",\"external-execution-id\":\"a563fa93-3906-4bbf-ad2a-f4e84e2ac092\",\"error-code\":\"JobFailed\"},\"action\":\"PromoteToProd\",\"state\":\"FAILED\",\"region\":\"us-east-2\",\"type\":{\"owner\":\"AWS\",\"provider\":\"Manual\",\"category\":\"Approval\",\"version\":\"1\"},\"version\":1.0},\"resources\":[\"arn:aws:codepipeline:us-east-2:225311078840:cdk_sso_management\"],\"additionalAttributes\":{}}",
+        "Timestamp": "1970-01-01T00:00:00.000Z",
+        "SignatureVersion": "1",
+        "Signature": "EXAMPLE",
+        "SigningCertUrl": "EXAMPLE",
+        "UnsubscribeUrl": "EXAMPLE",
+        "MessageAttributes": {
+          "Test": {
+            "Type": "String",
+            "Value": "TestString"
+          },
+          "TestBinary": {
+            "Type": "Binary",
+            "Value": "TestBinary"
+          }
+        }
+      }
+    }
+  ]
+}

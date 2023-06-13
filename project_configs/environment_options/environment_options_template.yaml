@@ -24,6 +24,11 @@ environments:
 
 #Webhook url
 webhook_ops_channel: "https://Mycompany.webhook.office.com/webhookb2/4d91f924-0761-40ee-982e-cf2ddc123441@947ae4c7-1234-4f6e-5678-06c60f64ca3e/IncomingWebhook/670f9030ad704e19b91cee697aaf9f2c/37e3bcb6-918a-430c-b281-22b36bc6678p"
+chat_ops: "enable"
+team_id: "76f20a93-4346-4390-baad-f0a1234567f1"
+teams_tenant_id: "0cf11b83-d338-43a4-ba90-34cfa1234567"
+teams_channel_id: "19%3a8l-XXXXXXXE8w208AgpQ1BvkvEnVa6XXXXAmVbre81%40thread.tacv2"
+
 
 
 storage_resources:

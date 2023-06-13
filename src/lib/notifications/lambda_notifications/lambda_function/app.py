@@ -1,6 +1,8 @@
 import os
 import pymsteams
 from get_secret import get_secret
+from get_pipeline import get_pipeline_status, get_token
+import json
 
 
 def set_state(message, state, connection_card, activity_text):
@@ -27,13 +29,13 @@ def set_state(message, state, connection_card, activity_text):
 
 
 def lambda_handler(event, context):
+    _help = ""
     print(event)
     #
     # Get event source
     #
 
     region = os.environ['AWS_REGION']
-    # message = event['Records'][0]['Sns']['Message']
     message = event
 
     webhook_secret_url = get_secret()
@@ -52,9 +54,19 @@ def lambda_handler(event, context):
         if message["detail-type"] == "CodePipeline Action Execution State Change":
 
             team_message.title(
-                f"Action Execution State Change - {message['detail-type']} in {message['detail']['pipeline']} Pipeline")
+                f"Action Execution State Change - {message['detail-type']} in {pipeline} Pipeline")
             team_message.color("7b9683")
+            stgs = json.loads(os.environ['approval_stages'])
+            if os.environ['enable_chatops'] == "true" and message['detail']['action'] == stgs[0]["action_name"]:
+                _help = f"\n \n Run @aws codepipeline get-pipeline-state --name {pipeline} --region {region}"
+                status = get_pipeline_status(pipeline_name=pipeline)
 
+                token = get_token(status=status, stage_name=stgs[0]["stage_name"], action_name=stgs[0]["action_name"])
+                print(token)
+                if token is not None:
+                    _help += f"\n \n \n Run @aws codepipeline put-approval-result --pipeline-name {pipeline} " \
+                             f"--stage-name {stgs[0]['stage_name']} --action-name {stgs[0]['action_name']} --token {token} " \
+                             '--result status="Approved",summary="The new infra looks good. Ready to release to customers."'
             # Add text to the message.
             team_message.text(
                 f"Action Execution State Change in pipeline {message['detail']['pipeline']} in account {message['account']} in region {message['region']} \n "
@@ -74,7 +86,7 @@ def lambda_handler(event, context):
             team_message.addSection(stage)
 
             set_state(message=message, state=state, connection_card=team_message,
-                      activity_text='Action Execution State Change! -Review if you need take action')
+                      activity_text=f'Action Execution State Change! -Review if you need take action \n  {_help}')
             team_message.addSection(action)
 
             if 'execution-result' in message['detail']:

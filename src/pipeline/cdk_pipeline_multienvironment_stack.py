@@ -1,16 +1,19 @@
 from aws_cdk import (
-    # Duration,
+    aws_secretsmanager as secretsmanager,
+    SecretValue,
     Stack,
     pipelines,
     aws_codecommit as codecommit,
     Environment,
     CfnOutput,
-    aws_codebuild as codebuild
+    aws_codebuild as codebuild,
 
 )
 from constructs import Construct
 from .stages.deploy_app_stage import PipelineStageDeployApp
-from ..lib.notifications.lambda_notifications import  LambdaNotification
+from ..lib.notifications.lambda_notifications import LambdaNotification
+from ..lib.aws_chatbot.microsoft_teams_conf import MicrosoftTeamsChannelConfiguration
+
 
 class CdkPipelineMultienvironmentStack(Stack):
 
@@ -21,9 +24,9 @@ class CdkPipelineMultienvironmentStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # The code that defines your stack goes here
-        enable_notifications = props.get("enable_notifications", "false")
-
         # Create repository
+        enable_notifications = props.get("enable_notifications", "false")
+        chat_ops = props.get("chat_ops", "disable")
 
         rep = codecommit.Repository(
             self,
@@ -79,7 +82,8 @@ class CdkPipelineMultienvironmentStack(Stack):
                                                  )
                                                  )
         # Create SAST Step for Infrastructure
-        sast_test_step = pipelines.CodeBuildStep("SASTTests", project_name="SASTTests",
+        sast_test_step = pipelines.CodeBuildStep("SASTTests",
+                                                 project_name="SASTTests",
                                                  commands=[
                                                      "pip install checkov",
                                                      "ls -all",
@@ -99,8 +103,7 @@ class CdkPipelineMultienvironmentStack(Stack):
                                                       }
                                                       }
                                                  ),
-                                                 input= pipeline.synth.primary_output
-
+                                                 input=pipeline.synth.primary_output
 
                                                  )
 
@@ -134,10 +137,16 @@ class CdkPipelineMultienvironmentStack(Stack):
 
         # Build Pipeline
         pipeline.build_pipeline()
+
+        if chat_ops == "enable":
+            MicrosoftTeamsChannelConfiguration(self, "TeamConfiguration", props=props)
+
         # Enable notifications
         if enable_notifications == "true":
-            LambdaNotification(self, "Notifications", props=props, pipeline=pipeline.pipeline)
-        # Define Outputs
+            LambdaNotification(self, "Notifications", props=props,
+                               pipeline=pipeline.pipeline,
+                               approval_stages='[{"stage_name":"DeployDev", "action_name": "PromoteToStg"}]'
+                               )
         # Define Outputs
         CfnOutput(self, "GRCRepoUrl", value=rep.repository_clone_url_grc, description="GRC Repository Url")
         CfnOutput(self, "PipelineArn", value=pipeline.pipeline.pipeline_arn, description="Pipeline ARN")
